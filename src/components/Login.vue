@@ -39,7 +39,9 @@ export default {
       error: ''
     }
   },
-
+  created() {
+    auth.checkAuth()
+  },
   methods: {
 
     submit() {
@@ -49,8 +51,7 @@ export default {
         password: this.credentials.password
       }
 
-      auth.login(this, credentials, 'secretquote')
-
+      auth.login(this, credentials, 'ryhdata')
     }
   }
   

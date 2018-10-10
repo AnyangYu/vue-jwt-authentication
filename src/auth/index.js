@@ -7,7 +7,8 @@ const SIGNUP_URL = API_URL + 'users/'
 export default {
 
   user: {
-    authenticated: false
+    authenticated: false,
+    name: ""
   },
 
   login(context, creds, redirect) {
@@ -15,6 +16,7 @@ export default {
       localStorage.setItem('id_token', data.id_token)
 
       this.user.authenticated = true
+      this.user.name = data.id_token
 
       if(redirect) {
         router.go(redirect)        
@@ -30,6 +32,7 @@ export default {
       localStorage.setItem('id_token', data.id_token)
 
       this.user.authenticated = true
+      this.user.name = data.id_token
 
       if(redirect) {
         router.go(redirect)        
@@ -43,15 +46,19 @@ export default {
   logout() {
     localStorage.removeItem('id_token')
     this.user.authenticated = false
+    this.user.name = ""
   },
 
   checkAuth() {
     var jwt = localStorage.getItem('id_token')
     if(jwt) {
       this.user.authenticated = true
+      this.user.name = jwt
+      router.go('ryhdata')
     }
     else {
       this.user.authenticated = false      
+      this.user.name = ""
     }
   },
 
